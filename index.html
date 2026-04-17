@@ -4,319 +4,461 @@
 <meta charset="UTF-8">
 <title>Hành trình Sài Gòn → Phước Hải</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    padding: 30px 20px;
-    color: #333;
-    font-size: 21px;
-  }
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  }
-  h1 {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 10px;
-    font-size: 42px;
-  }
-  .subtitle {
-    text-align: center;
-    color: #7f8c8d;
-    margin-bottom: 40px;
-    font-size: 21px;
-  }
-  .start-point {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  .badge {
-    display: inline-block;
-    padding: 22px 44px;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 23px;
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  }
-  .badge.start { background: linear-gradient(135deg, #11998e, #38ef7d); }
-  .badge.meet  { background: linear-gradient(135deg, #f093fb, #f5576c); }
-  .badge.stop  { background: linear-gradient(135deg, #fa709a, #fee140); color:#333; }
-  .badge.end   { background: linear-gradient(135deg, #eb3349, #f45c43); }
-
-  .teams {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 30px;
-  }
-  .team {
-    border-radius: 15px;
-    padding: 25px;
-    position: relative;
-  }
-  .team1 { background: linear-gradient(135deg, #e3f2fd, #bbdefb); border: 2px solid #2196f3; }
-  .team2 { background: linear-gradient(135deg, #fce4ec, #f8bbd0); border: 2px solid #e91e63; }
-  .team-title {
-    font-size: 27px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.7);
-  }
-  .team1 .team-title { color: #1565c0; }
-  .team2 .team-title { color: #c2185b; }
-
-  .step {
-    background: #fff;
-    padding: 18px 24px;
-    margin: 10px 0;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    font-weight: 500;
-    font-size: 22px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .step-num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
-    flex-shrink: 0;
-  }
-  .team1 .step-num { background: #2196f3; }
-  .team2 .step-num { background: #e91e63; }
-
-  .arrow {
-    text-align: center;
-    font-size: 36px;
-    color: #999;
-    margin: 5px 0;
-  }
-
-  .common-path {
-    background: linear-gradient(135deg, #fff9c4, #ffe082);
-    border: 2px dashed #ff9800;
-    border-radius: 15px;
-    padding: 25px;
-    margin: 20px 0;
-  }
-  .common-title {
-    text-align: center;
-    font-weight: bold;
-    font-size: 27px;
-    color: #e65100;
-    margin-bottom: 20px;
-  }
-  .common-flow {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
-  .flow-item {
-    background: #fff;
-    padding: 18px 28px;
-    border-radius: 30px;
-    font-weight: 500;
-    font-size: 22px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  .flow-item.highlight {
-    background: linear-gradient(135deg, #ff9800, #ff5722);
-    color: #fff;
-  }
-  .flow-arrow {
-    color: #ff6f00;
-    font-size: 30px;
-    font-weight: bold;
-  }
-  .center-arrow {
-    text-align: center;
-    font-size: 48px;
-    color: #f5576c;
-    margin: 10px 0;
-  }
-  .meet-box {
-    text-align: center;
-    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-    border: 2px solid #f5576c;
-    border-radius: 18px;
-    padding: 25px 20px;
-    margin: 10px auto;
-    max-width: 520px;
-    box-shadow: 0 6px 20px rgba(245,87,108,0.25);
-  }
-  .meet-detail { margin-top: 18px; }
-  .meet-name {
-    font-size: 29px;
-    font-weight: bold;
-    color: #c2185b;
-    margin-bottom: 6px;
-  }
-  .meet-addr {
-    font-size: 21px;
-    color: #555;
-    margin-bottom: 12px;
-  }
-  .map-link {
-    display: inline-block;
-    background: #4285F4;
-    color: #fff;
-    text-decoration: none;
-    padding: 13px 28px;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 20px;
-    box-shadow: 0 3px 10px rgba(66,133,244,0.4);
-    transition: transform 0.15s;
-  }
-  .map-link:hover { transform: scale(1.05); }
-  .qr-wrap {
-    margin-top: 18px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .qr-wrap img {
-    width: 200px;
-    height: 200px;
-    background: #fff;
-    padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  }
-  .qr-caption {
-    margin-top: 8px;
-    font-size: 17px;
-    color: #666;
-    font-style: italic;
-  }
-
-  .legend {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 30px;
-    flex-wrap: wrap;
-    padding-top: 20px;
-    border-top: 1px dashed #ccc;
-  }
-  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 20px; color: #555; }
-  .legend-dot { width: 20px; height: 20px; border-radius: 50%; }
-
-  @media (max-width: 700px) {
-    .teams { grid-template-columns: 1fr; }
-    h1 { font-size: 33px; }
-    .container { padding: 20px; }
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 30px 20px;
+    color: #333;
+    font-size: 21px;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 42px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 40px;
+    font-size: 21px;
+  }
+  .start-point {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 22px 44px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 23px;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  .badge.start { background: linear-gradient(135deg, #11998e, #38ef7d); }
+  .badge.meet  { background: linear-gradient(135deg, #f093fb, #f5576c); }
+  .badge.stop  { background: linear-gradient(135deg, #fa709a, #fee140); color:#333; }
+  .badge.end   { background: linear-gradient(135deg, #eb3349, #f45c43); }
+ 
+  .teams {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  .team {
+    border-radius: 15px;
+    padding: 25px;
+    position: relative;
+  }
+  .team1 { background: linear-gradient(135deg, #e3f2fd, #bbdefb); border: 2px solid #2196f3; }
+  .team2 { background: linear-gradient(135deg, #fce4ec, #f8bbd0); border: 2px solid #e91e63; }
+  .team-title {
+    font-size: 27px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.7);
+  }
+  .team1 .team-title { color: #1565c0; }
+  .team2 .team-title { color: #c2185b; }
+ 
+  .step {
+    background: #fff;
+    padding: 18px 24px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-weight: 500;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .team1 .step-num { background: #2196f3; }
+  .team2 .step-num { background: #e91e63; }
+ 
+  .arrow {
+    text-align: center;
+    font-size: 36px;
+    color: #999;
+    margin: 5px 0;
+  }
+ 
+  .common-path {
+    background: linear-gradient(135deg, #fff9c4, #ffe082);
+    border: 2px dashed #ff9800;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px 0;
+  }
+  .common-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 27px;
+    color: #e65100;
+    margin-bottom: 20px;
+  }
+  .common-flow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .flow-item {
+    background: #fff;
+    padding: 18px 28px;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 22px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .flow-item.highlight {
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+    color: #fff;
+  }
+  .flow-arrow {
+    color: #ff6f00;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .center-arrow {
+    text-align: center;
+    font-size: 48px;
+    color: #f5576c;
+    margin: 10px 0;
+  }
+  .trip-date {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #5e35b1;
+    background: linear-gradient(135deg, #ede7f6, #d1c4e9);
+    padding: 12px 24px;
+    border-radius: 30px;
+    margin: 0 auto 30px auto;
+    max-width: 400px;
+    border: 2px solid #7e57c2;
+  }
+ 
+  .notes-section {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+  }
+  .note-card {
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  }
+  .note-bike { background: linear-gradient(135deg, #fff8e1, #ffecb3); border: 2px solid #ffa726; }
+  .note-bring { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 2px solid #66bb6a; }
+  .note-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed rgba(0,0,0,0.15);
+  }
+  .note-bike .note-title { color: #e65100; }
+  .note-bring .note-title { color: #2e7d32; }
+  .note-list {
+    list-style: none;
+    padding: 0;
+  }
+  .note-list li {
+    padding: 10px 14px;
+    margin: 8px 0;
+    background: rgba(255,255,255,0.7);
+    border-radius: 10px;
+    font-size: 19px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .note-list li::before {
+    content: "✓";
+    color: #2e7d32;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .note-bike .note-list li::before { color: #e65100; }
+ 
+  @media (max-width: 700px) {
+    .notes-section { grid-template-columns: 1fr; }
+  }
+ 
+  .depart-time {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    border: 2px solid #ff9800;
+    border-radius: 30px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #e65100;
+    box-shadow: 0 3px 10px rgba(255,152,0,0.25);
+  }
+ 
+  .phone-link {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 16px;
+    border-radius: 25px;
+    margin: 0 auto 18px auto;
+    max-width: 260px;
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    transition: transform 0.15s;
+  }
+  .phone-link:hover { transform: scale(1.05); }
+  .team1-phone { background: linear-gradient(135deg, #1976d2, #2196f3); }
+  .team2-phone { background: linear-gradient(135deg, #c2185b, #e91e63); }
+ 
+  .meet-box {
+    text-align: center;
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    border: 2px solid #f5576c;
+    border-radius: 18px;
+    padding: 25px 20px;
+    margin: 10px auto;
+    max-width: 520px;
+    box-shadow: 0 6px 20px rgba(245,87,108,0.25);
+  }
+  .meet-detail { margin-top: 18px; }
+  .meet-name {
+    font-size: 29px;
+    font-weight: bold;
+    color: #c2185b;
+    margin-bottom: 6px;
+  }
+  .meet-addr {
+    font-size: 21px;
+    color: #555;
+    margin-bottom: 12px;
+  }
+  .map-link {
+    display: inline-block;
+    background: #4285F4;
+    color: #fff;
+    text-decoration: none;
+    padding: 13px 28px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 20px;
+    box-shadow: 0 3px 10px rgba(66,133,244,0.4);
+    transition: transform 0.15s;
+  }
+  .map-link:hover { transform: scale(1.05); }
+  .end-box {
+    background: linear-gradient(135deg, #ffebee, #ffcdd2);
+    border: 2px solid #eb3349;
+    box-shadow: 0 6px 20px rgba(235,51,73,0.25);
+  }
+  .end-name { color: #b71c1c; }
+  .end-link { background: #eb3349; box-shadow: 0 3px 10px rgba(235,51,73,0.4); }
+  .qr-wrap {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .qr-wrap img {
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .qr-caption {
+    margin-top: 8px;
+    font-size: 17px;
+    color: #666;
+    font-style: italic;
+  }
+ 
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    border-top: 1px dashed #ccc;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 20px; color: #555; }
+  .legend-dot { width: 20px; height: 20px; border-radius: 50%; }
+ 
+  @media (max-width: 700px) {
+    .teams { grid-template-columns: 1fr; }
+    h1 { font-size: 33px; }
+    .container { padding: 20px; }
+  }
 </style>
 </head>
 <body>
 <div class="container">
-
-  <h1>🚗 Hành trình Sài Gòn → Phước Hải 🏖️</h1>
-  <p class="subtitle">Kế hoạch di chuyển của 2 team</p>
-
-  <div class="start-point">
-    <span class="badge start">📍 XUẤT PHÁT TỪ SÀI GÒN</span>
-  </div>
-
-  <div class="teams">
-    <!-- Team 1 -->
-    <div class="team team1">
-      <div class="team-title">👩 Team 1 — Quỳnh Như</div>
-      <div class="step"><span class="step-num">1</span> An Lạc</div>
-      <div class="arrow">↓</div>
-      <div class="step"><span class="step-num">2</span> Võ Văn Kiệt</div>
-      <div class="arrow">↓</div>
-      <div class="step"><span class="step-num">3</span> Hầm Thủ Thiêm</div>
-      <div class="arrow">↓</div>
-      <div class="step"><span class="step-num">4</span> Phà Cát Lái ⛴️</div>
-      <div class="arrow">↓</div>
-      <div class="step"><span class="step-num">5</span> Qua phà 🚢</div>
-    </div>
-
-    <!-- Team 2 -->
-    <div class="team team2">
-      <div class="team-title">👩 Team 2 — Mỹ Quyên</div>
-      <div class="step"><span class="step-num">1</span> Bình Chánh</div>
-      <div class="arrow">↓</div>
-      <div class="step"><span class="step-num">2</span> Nguyễn Văn Linh</div>
-      <div class="arrow">↓</div>
-      <div class="step"><span class="step-num">3</span> Cầu Phú Mỹ 🌉</div>
-      <div class="arrow">↓</div>
-      <div class="step"><span class="step-num">4</span> Phà Cát Lái ⛴️</div>
-      <div class="arrow">↓</div>
-      <div class="step"><span class="step-num">5</span> Qua phà 🚢</div>
-    </div>
-  </div>
-
-  <div class="center-arrow">⬇ ⬇</div>
-
-  <div class="start-point">
-    <div class="meet-box">
-      <span class="badge meet">🤝 ĐIỂM HẸN 1 — Hai team gặp nhau</span>
-      <div class="meet-detail">
-        <div class="meet-name">☕ Cà Phê Lộc Vừng</div>
-        <div class="meet-addr">Bên kia phà Cát Lái (Đồng Nai)</div>
-        <a class="map-link" href="https://maps.app.goo.gl/wrhLSGgYTUjPadYw9" target="_blank">📍 Mở Google Maps</a>
-        <div class="qr-wrap">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fmaps.app.goo.gl%2FwrhLSGgYTUjPadYw9" alt="QR code Cà Phê Lộc Vừng">
-          <div class="qr-caption">Quét QR để mở Google Maps</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="center-arrow">⬇</div>
-
-  <div class="common-path">
-    <div class="common-title">🚙🚙 Đi chung — Team 1 + Team 2</div>
-    <div class="common-flow">
-      <span class="flow-item">Quốc lộ 51</span>
-      <span class="flow-arrow">➜</span>
-      <span class="flow-item">Long Hải</span>
-      <span class="flow-arrow">➜</span>
-      <span class="flow-item highlight">🍜 Dừng chân ăn uống / nghỉ ngơi</span>
-      <span class="flow-arrow">➜</span>
-      <span class="flow-item">Đèo Nước Ngọt</span>
-      <span class="flow-arrow">➜</span>
-      <span class="flow-item">Phước Hải</span>
-    </div>
-  </div>
-
-  <div class="center-arrow">⬇</div>
-
-  <div class="start-point">
-    <span class="badge end">🏁 ĐIỂM HẸN CUỐI — Phước Hải</span>
-  </div>
-
-  <div class="legend">
-    <div class="legend-item"><span class="legend-dot" style="background:#2196f3"></span>Team 1 (Quỳnh Như)</div>
-    <div class="legend-item"><span class="legend-dot" style="background:#e91e63"></span>Team 2 (Mỹ Quyên)</div>
-    <div class="legend-item"><span class="legend-dot" style="background:#ff9800"></span>Đi chung</div>
-    <div class="legend-item"><span class="legend-dot" style="background:#f5576c"></span>Điểm hẹn</div>
-  </div>
-
+ 
+  <h1>🚗 Hành trình Sài Gòn → Phước Hải 🏖️</h1>
+  <p class="subtitle">Kế hoạch di chuyển của 2 team</p>
+  <div class="trip-date">📅 Thứ Bảy, ngày 18/04/2026</div>
+ 
+  <div class="start-point">
+    <span class="badge start">📍 XUẤT PHÁT TỪ SÀI GÒN</span>
+    <div class="depart-time">⏰ 6h30 sáng</div>
+  </div>
+ 
+  <div class="teams">
+    <!-- Team 1 -->
+    <div class="team team1">
+      <div class="team-title">👩 Team 1 — Quỳnh Như</div>
+      <a class="phone-link team1-phone" href="tel:0948321198">📞 0948 321 198</a>
+      <div class="step"><span class="step-num">1</span> An Lạc</div>
+      <div class="arrow">↓</div>
+      <div class="step"><span class="step-num">2</span> Võ Văn Kiệt</div>
+      <div class="arrow">↓</div>
+      <div class="step"><span class="step-num">3</span> Hầm Thủ Thiêm</div>
+      <div class="arrow">↓</div>
+      <div class="step"><span class="step-num">4</span> Phà Cát Lái ⛴️</div>
+      <div class="arrow">↓</div>
+      <div class="step"><span class="step-num">5</span> Qua phà 🚢</div>
+    </div>
+ 
+    <!-- Team 2 -->
+    <div class="team team2">
+      <div class="team-title">👩 Team 2 — Mỹ Quyên</div>
+      <a class="phone-link team2-phone" href="tel:0937841250">📞 0937 841 250</a>
+      <div class="step"><span class="step-num">1</span> Bình Chánh</div>
+      <div class="arrow">↓</div>
+      <div class="step"><span class="step-num">2</span> Nguyễn Văn Linh</div>
+      <div class="arrow">↓</div>
+      <div class="step"><span class="step-num">3</span> Cầu Phú Mỹ 🌉</div>
+      <div class="arrow">↓</div>
+      <div class="step"><span class="step-num">4</span> Phà Cát Lái ⛴️</div>
+      <div class="arrow">↓</div>
+      <div class="step"><span class="step-num">5</span> Qua phà 🚢</div>
+    </div>
+  </div>
+ 
+  <div class="center-arrow">⬇ ⬇</div>
+ 
+  <div class="start-point">
+    <div class="meet-box">
+      <span class="badge meet">🤝 ĐIỂM HẸN 1 — Hai team gặp nhau</span>
+      <div class="meet-detail">
+        <div class="meet-name">☕ Cà Phê Lộc Vừng</div>
+        <div class="meet-addr">Bên kia phà Cát Lái (Đồng Nai)</div>
+        <a class="map-link" href="https://maps.app.goo.gl/wrhLSGgYTUjPadYw9" target="_blank">📍 Mở Google Maps</a>
+        <div class="qr-wrap">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fmaps.app.goo.gl%2FwrhLS… alt="QR code Cà Phê Lộc Vừng">
+          <div class="qr-caption">Quét QR để mở Google Maps</div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="center-arrow">⬇</div>
+ 
+  <div class="common-path">
+    <div class="common-title">🚙🚙 Đi chung — Team 1 + Team 2</div>
+    <div class="common-flow">
+      <span class="flow-item">Quốc lộ 51</span>
+      <span class="flow-arrow">➜</span>
+      <span class="flow-item">Long Hải</span>
+      <span class="flow-arrow">➜</span>
+      <span class="flow-item highlight">🍜 Dừng chân ăn uống / nghỉ ngơi</span>
+      <span class="flow-arrow">➜</span>
+      <span class="flow-item">Đèo Nước Ngọt</span>
+      <span class="flow-arrow">➜</span>
+      <span class="flow-item">Phước Hải</span>
+    </div>
+  </div>
+ 
+  <div class="center-arrow">⬇</div>
+ 
+  <div class="meet-box end-box">
+    <span class="badge end">🏁 ĐIỂM ĐẾN CUỐI — Phước Hải</span>
+    <div class="meet-detail">
+      <div class="meet-name end-name">🏕️ Camping Làng Digan</div>
+      <div class="meet-addr">Phước Hải, Bà Rịa - Vũng Tàu</div>
+      <a class="map-link end-link" href="https://maps.app.goo.gl/XPmGqU5c6i6PCYmA9" target="_blank">📍 Mở Google Maps</a>
+      <div class="qr-wrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fmaps.app.goo.gl%2FXPmGq… alt="QR code Camping Làng Digan">
+        <div class="qr-caption">Quét QR để mở Google Maps</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="notes-section">
+    <div class="note-card note-bike">
+      <div class="note-title">🔧 Kiểm tra xe máy trước khi đi</div>
+      <ul class="note-list">
+        <li>Bơm bánh xe (trước & sau)</li>
+        <li>Kiểm tra thắng xe (trước & sau)</li>
+        <li>Đổ xăng đầy bình</li>
+        <li>Kiểm tra lốp có dính đinh không</li>
+        <li>Kiểm tra đèn, xi-nhan, còi</li>
+      </ul>
+    </div>
+ 
+    <div class="note-card note-bring">
+      <div class="note-title">🎒 Cần mang theo</div>
+      <ul class="note-list">
+        <li>💵 Tiền lẻ trả tiền phà</li>
+        <li>🪪 CCCD, bằng lái xe</li>
+        <li>🧥 Áo mưa</li>
+        <li>🧴 Kem chống nắng</li>
+        <li>🕶️ Kính mát đi xe (trời nắng)</li>
+        <li>👙 Đồ bơi, khăn tắm (nếu tắm biển)</li>
+        <li>🛍️ Túi nilon/balo không thấm nước (đựng đồ ướt sau khi tắm biển)</li>
+        <li>🪥 Bàn chải, kem đánh răng, dầu gội/sữa tắm mini</li>
+        <li>🦟 Thuốc chống muỗi</li>
+        <li>💊 Thuốc cá nhân</li>
+        <li>🔋 Sạc dự phòng</li>
+      </ul>
+    </div>
+  </div>
+ 
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:#2196f3"></span>Team 1 (Quỳnh Như)</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#e91e63"></span>Team 2 (Mỹ Quyên)</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#ff9800"></span>Đi chung</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#f5576c"></span>Điểm hẹn</div>
+  </div>
+ 
 </div>
 </body>
 </html>
- 
