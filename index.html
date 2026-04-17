@@ -154,6 +154,59 @@
     color: #f5576c;
     margin: 10px 0;
   }
+  .timeline-overview {
+    background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+    border: 2px solid #00acc1;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+  }
+  .timeline-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #006064;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed rgba(0,0,0,0.15);
+  }
+  .timeline-list { display: flex; flex-direction: column; gap: 10px; }
+  .tl-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 18px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .tl-time {
+    flex-shrink: 0;
+    min-width: 90px;
+    font-weight: bold;
+    font-size: 22px;
+    color: #00838f;
+    text-align: center;
+    padding: 6px 10px;
+    background: #fff;
+    border-radius: 8px;
+    border: 2px solid #00acc1;
+  }
+  .tl-desc { font-size: 20px; font-weight: 500; }
+
+  .time-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.9);
+    border: 2px solid #ff6f00;
+    color: #bf360c;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin-top: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
   .trip-date {
     text-align: center;
     font-size: 24px;
@@ -343,9 +396,21 @@
   <p class="subtitle">Kế hoạch di chuyển của 2 team</p>
   <div class="trip-date">📅 Thứ Bảy, ngày 18/04/2026</div>
 
+  <div class="timeline-overview">
+    <div class="timeline-title">🕐 Timeline tổng quan</div>
+    <div class="timeline-list">
+      <div class="tl-row"><span class="tl-time">06:00</span><span class="tl-desc">🚗 Xuất phát từ Sài Gòn</span></div>
+      <div class="tl-row"><span class="tl-time">07:30</span><span class="tl-desc">☕ Đến Cà Phê Lộc Vừng — 2 team gặp nhau</span></div>
+      <div class="tl-row"><span class="tl-time">08:30</span><span class="tl-desc">🏍️ Rời cà phê, đi Phước Hải</span></div>
+      <div class="tl-row"><span class="tl-time">11:00</span><span class="tl-desc">🐟 Đến Làng Chài Phước Hải — ăn trưa</span></div>
+      <div class="tl-row"><span class="tl-time">12:00</span><span class="tl-desc">🚙 Rời làng chài, đi Camping</span></div>
+      <div class="tl-row"><span class="tl-time">~12:30</span><span class="tl-desc">🏕️ Đến Camping Làng Digan — nhận lều, nghỉ ngơi</span></div>
+    </div>
+  </div>
+
   <div class="start-point">
     <span class="badge start">📍 XUẤT PHÁT TỪ SÀI GÒN</span>
-    <div class="depart-time">⏰ 6h30 sáng</div>
+    <div class="depart-time">⏰ 06:00 sáng</div>
   </div>
 
   <div class="teams">
@@ -385,6 +450,7 @@
   <div class="start-point">
     <div class="meet-box">
       <span class="badge meet">🤝 ĐIỂM HẸN 1 — Hai team gặp nhau</span>
+      <div class="time-badge">⏰ 07:30 — Đến nơi · ☕ Uống cf 1 tiếng · 08:30 — Xuất phát</div>
       <div class="meet-detail">
         <div class="meet-name">☕ Cà Phê Lộc Vừng</div>
         <div class="meet-addr">Bên kia phà Cát Lái (Đồng Nai)</div>
@@ -416,6 +482,7 @@
 
   <div class="meet-box lunch-box">
     <span class="badge stop">🍜 ĂN TRƯA</span>
+    <div class="time-badge">⏰ 11:00 — Đến nơi · 🍜 Ăn trưa · 12:00 — Xuất phát</div>
     <div class="meet-detail">
       <div class="meet-name lunch-name">🐟 Làng Chài Phước Hải</div>
       <div class="meet-addr">Hải sản tươi sống — Phước Hải</div>
@@ -431,6 +498,7 @@
 
   <div class="meet-box end-box">
     <span class="badge end">🏁 ĐIỂM ĐẾN CUỐI — Phước Hải</span>
+    <div class="time-badge">⏰ ~12:30 — Đến nơi, nhận lều, nghỉ ngơi 🏖️</div>
     <div class="meet-detail">
       <div class="meet-name end-name">🏕️ Camping Làng Digan</div>
       <div class="meet-addr">Phước Hải, Bà Rịa - Vũng Tàu</div>
