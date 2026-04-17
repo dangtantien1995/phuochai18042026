@@ -289,6 +289,13 @@
   }
   .end-name { color: #b71c1c; }
   .end-link { background: #eb3349; box-shadow: 0 3px 10px rgba(235,51,73,0.4); }
+  .lunch-box {
+    background: linear-gradient(135deg, #fff9c4, #ffe082);
+    border: 2px solid #ff9800;
+    box-shadow: 0 6px 20px rgba(255,152,0,0.25);
+  }
+  .lunch-name { color: #e65100; }
+  .lunch-link { background: #ff9800; box-shadow: 0 3px 10px rgba(255,152,0,0.4); }
   .qr-wrap {
     margin-top: 18px;
     display: flex;
@@ -402,8 +409,21 @@
       <span class="flow-item">Đèo Nước Ngọt</span>
       <span class="flow-arrow">➜</span>
       <span class="flow-item">Phước Hải</span>
-      <span class="flow-arrow">➜</span>
-      <span class="flow-item highlight">🍜 Ăn trưa tại làng chài Phước Hải</span>
+    </div>
+  </div>
+
+  <div class="center-arrow">⬇</div>
+
+  <div class="meet-box lunch-box">
+    <span class="badge stop">🍜 ĂN TRƯA</span>
+    <div class="meet-detail">
+      <div class="meet-name lunch-name">🐟 Làng Chài Phước Hải</div>
+      <div class="meet-addr">Hải sản tươi sống — Phước Hải</div>
+      <a class="map-link lunch-link" href="https://maps.app.goo.gl/bRYuyeJ2xHg2RJ3U9" target="_blank">📍 Mở Google Maps</a>
+      <div class="qr-wrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fmaps.app.goo.gl%2FbRYuyeJ2xHg2RJ3U9" alt="QR code Làng Chài Phước Hải">
+        <div class="qr-caption">Quét QR để mở Google Maps</div>
+      </div>
     </div>
   </div>
 
